@@ -1,23 +1,28 @@
 #define ANALOG_MAX 255
 
 /*These need to be PWM pins*/
-int green_pin = 3;
-int red_pin = 5;
-int blue_pin = 6;
-
+int green_pin = D1;
+int red_pin = D2;
+int blue_pin = D0;
+int led_pin = D7;
 
 void setup(){
   pinMode(green_pin, OUTPUT);
   pinMode(red_pin, OUTPUT);
   pinMode(blue_pin, OUTPUT);
+  pinMode(led_pin, OUTPUT);
+  Particle.function("green", net_green);
+  Particle.function("red", net_red);
+  Particle.function("blue", net_blue);
 }
 
 void loop(){
   int i = 0;
   for(i=0; i < ANALOG_MAX; i++){ //Conveniently using analog_max because it is the same max number
-    Wheel(i);
+    //Wheel(i);
     delay(10);
   }
+  digitalWrite(led_pin, HIGH);
 }
 
 void Wheel(byte WheelPos) {
@@ -49,4 +54,16 @@ void set_green(uint8_t green){
 
 void set_blue(uint8_t blue){
   analogWrite(blue_pin, blue);
+}
+
+int net_green(String val){
+    set_green(val.toInt());
+}
+
+int net_red(String val){
+    set_red(val.toInt());
+}
+
+int net_blue(String val){
+    set_blue(val.toInt());
 }
