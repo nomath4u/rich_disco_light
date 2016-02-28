@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="special_functions">
+        <item>Wheel</item>
+        <item>Blink Red</item>
+
+    </string-array>
+</resources>
